@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.webreact.mapper.UploadMapper">
+    <!-- ImageMapper.xml -->
+    <!-- 插入图片信息 -->
+    <insert id="save" parameterType="com.example.webreact.entity.uploadimage">
+        INSERT INTO uploaimage (name, url, logs, country, createtime)
+        VALUES (#{name}, #{url}, #{logs}, #{country}, #{createtime})
+    </insert>
+</mapper>
