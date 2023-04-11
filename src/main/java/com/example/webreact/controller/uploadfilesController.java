@@ -6,23 +6,22 @@ import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.uploadimage;
 import com.example.webreact.server.Imp.uploadServerImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
@@ -71,33 +70,28 @@ public class uploadfilesController {
      * @return
      */
     // Define endpoint for handling PDF files
-    @PostMapping("/requestPDF")
-    public ResponseEntity<String> postPdf() throws IOException {
-        // Read PDF file into a byte array
-        try {
-            File file = new File("src/main/resources/wuwj/wwj.pdf");
-            byte[] bytes = Files.readAllBytes(file.toPath());
 
-            // Set headers for dynamic loading of data
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            headers.setContentDispositionFormData("inline", file.getName());
-            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-            compressder compressder = new compressder();
-            // Compress the byte array to reduce file size
-            bytes = compressder.compress(bytes);
-            System.out.println(Arrays.toString(bytes));
-            // Return byte array as response with headers
-            String encodedPdf = Base64.getEncoder().encodeToString(bytes);
-            // 使用断点传输
-            headers.set("Content-Transfer-Encoding", "binary");
-            return new ResponseEntity<>(encodedPdf, headers, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "Content-Type")
+    @GetMapping("/requestPDF")
+    public ResponseEntity<StreamingResponseBody> postPdf() throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.setContentDispositionFormData("inline", "wwj.pdf");
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+        StreamingResponseBody responseBody = outputStream -> {
+            try (InputStream inputStream = new ClassPathResource("wuwj/wwj.pdf").getInputStream()) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        return new ResponseEntity<>(responseBody, headers, HttpStatus.OK);
     }
-
-
 }
