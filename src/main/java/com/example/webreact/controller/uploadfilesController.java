@@ -1,7 +1,6 @@
 package com.example.webreact.controller;
 
 
-import com.example.webreact.controller.GZip.compressder;
 import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.uploadimage;
 import com.example.webreact.server.Imp.uploadServerImp;
@@ -15,14 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
@@ -70,8 +67,6 @@ public class uploadfilesController {
      * @return
      */
     // Define endpoint for handling PDF files
-
-
     @CrossOrigin(origins = "*", allowedHeaders = "Content-Type")
     @GetMapping("/requestPDF")
     public ResponseEntity<StreamingResponseBody> postPdf() throws IOException {
