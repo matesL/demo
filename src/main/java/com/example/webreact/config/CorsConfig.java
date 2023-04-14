@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName:  CorsFilter
@@ -28,7 +27,7 @@ public class CorsConfig implements Filter{
             response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Token,application/pdf");
             response.setHeader("Access-Control-Allow-Credentials","true");
-            System.out.println(req+"jjj");
+            // System.out.println(req+"jjj");
             chain.doFilter(req, res);
         }catch (Error e){
             e.printStackTrace();
@@ -39,5 +38,6 @@ public class CorsConfig implements Filter{
     }
     public void destroy() {
     }
+
 
 }

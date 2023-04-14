@@ -1,6 +1,4 @@
 package com.example.webreact.controller;
-
-
 import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.uploadimage;
 import com.example.webreact.server.Imp.uploadServerImp;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -70,23 +67,23 @@ public class uploadfilesController {
     @CrossOrigin(origins = "*", allowedHeaders = "Content-Type")
     @GetMapping("/requestPDF")
     public ResponseEntity<StreamingResponseBody> postPdf() throws IOException {
+        InputStream inputStream = new ClassPathResource("wuwj/wwj.pdf").getInputStream();
+
+        // Set headers for dynamic loading of data
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         headers.setContentDispositionFormData("inline", "wwj.pdf");
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
+        // Return input stream as response with headers
         StreamingResponseBody responseBody = outputStream -> {
-            try (InputStream inputStream = new ClassPathResource("wuwj/wwj.pdf").getInputStream()) {
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
+            inputStream.close();
         };
-
         return new ResponseEntity<>(responseBody, headers, HttpStatus.OK);
     }
 }
