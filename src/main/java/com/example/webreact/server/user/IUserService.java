@@ -6,24 +6,10 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.example.webreact.controller.user;
+package com.example.webreact.server.user;
 
 import com.example.webreact.entity.basecat.UserInfo;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/v2")
-public class useController {
-/**
- * @description defaultDescription
- * @param userInfo
- * @author lucky
- * @date 2023/4/14 16:58
- */
-    @PostMapping("/login")
-    public UserInfo login(UserInfo userInfo){
-
-        return  userInfo;
-    }
+public interface IUserService {
+    UserInfo login(UserInfo user);
 }

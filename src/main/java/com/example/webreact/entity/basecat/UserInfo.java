@@ -3,6 +3,9 @@ package com.example.webreact.entity.basecat;
 
 import lombok.Data;
 
+/**
+ * 用户表
+ */
 @Data
 public class UserInfo {
 

@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 
 public class initializeController {
+
+
     @GetMapping ("/")
     public Response index() {
         return new Response(true, "成功！", 200);
