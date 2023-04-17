@@ -22,13 +22,13 @@ public class WebConfiguration implements WebMvcConfigurer {
     /**
      * 配置拦截器、拦截路径
      * 每次请求到拦截的路径，就会去执行拦截器中的方法
-     * @param
+     * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
         //排除拦截，除了登录，其他都拦截
-        excludePath.add("/apis/login");
+        excludePath.add("/v2/login");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

@@ -6,12 +6,10 @@ public class Response {
     int code;
     Boolean isSuc = true;
 
-
     public Response(Boolean isSuc, String msg, int code) {
         this.msg = msg;
         this.code = code;
         this.isSuc = isSuc;
-
     }
 
 

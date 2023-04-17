@@ -15,8 +15,6 @@ public class uploadServerImp implements uploadServer {
     private UploadMapper uploadMapper;
     @Override
     public void save(uploadimage upload) {
-
         uploadMapper.save(upload);
-
     }
 }

@@ -11,7 +11,7 @@
         INSERT INTO user_info (username, password, Email)
         VALUES (#{username}, #{password}, #{Email})
     </insert>
-    <!-- 查询 id=save方法-->
+    <!-- 查询 id=login方法-->
     <select id="login" parameterType="com.example.webreact.entity.basecat.UserInfo">
        select * from user_info where username=#{username} and password=#{password}
     </select>

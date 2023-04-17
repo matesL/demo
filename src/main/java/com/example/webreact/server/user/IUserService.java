@@ -8,8 +8,12 @@
 
 package com.example.webreact.server.user;
 
+import com.example.webreact.entity.basecat.LoginDto;
 import com.example.webreact.entity.basecat.UserInfo;
 
+
+
 public interface IUserService {
-    UserInfo login(UserInfo user);
+    LoginDto login(UserInfo user);
+
 }

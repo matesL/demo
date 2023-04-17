@@ -1,5 +1,11 @@
 package com.example.webreact.entity;
-
+/**
+ * @description 图片上传
+ * @param null
+ * defaultParamDescription
+ * @author lucky
+ * @date 2023/4/17 14:39
+ */
 public class uploadimage {
     private String name;
     private String url;

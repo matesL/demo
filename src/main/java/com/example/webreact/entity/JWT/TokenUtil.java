@@ -13,8 +13,9 @@ import com.example.webreact.entity.basecat.UserInfo;
 import java.util.Date;
 
 /**
- * @author laz
- * @date 2022/09/09 14:55
+ * defaultParamDescription
+ * @author lucky
+ * @date 2023/4/17 13:28
  */
 public class TokenUtil {
 
@@ -42,7 +43,7 @@ public class TokenUtil {
                     //过期时间
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKEN_SECRET));
-        } catch (IllegalArgumentException|JWTCreationException je) {
+        } catch (IllegalArgumentException|JWTCreationException ignored) {
 
         }
         return token;

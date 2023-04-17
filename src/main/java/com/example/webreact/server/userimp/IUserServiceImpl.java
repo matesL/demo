@@ -9,33 +9,38 @@
 package com.example.webreact.server.userimp;
 
 import com.example.webreact.entity.JWT.TokenUtil;
+import com.example.webreact.entity.basecat.UserInfo;
 import com.example.webreact.server.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import com.example.webreact.entity.basecat.LoginDto;
 import com.example.webreact.mapper.post.userMapper;
-public class userinfoserverimp {
-    @Service
-    public class IUserServiceImpl implements IUserService {
+@Component
+@Service
+public class IUserServiceImpl implements IUserService {
 
         @Autowired
         private userMapper userMapper;
 
         @Override
-        public LoginDto login(User user) {
+        public LoginDto login(UserInfo user) {
+            System.out.println(user);
             LoginDto loginDto = new LoginDto();
-            User login = userMapper.login(user);
+            UserInfo login = userMapper.login(user);
 
-            if (login == null){
+            if (login == null) {
                 loginDto.setCode(400);
                 loginDto.setMsg("账号或密码错误！");
                 return loginDto;
             }
-            String token= TokenUtil.sign(login);
+            String token = TokenUtil.sign(login);
 
             loginDto.setCode(200);
             loginDto.setMsg("登录成功!");
-            loginDto.setUser(login);
+            loginDto.setUserInfo(login);
             loginDto.setToken(token);
             return loginDto;
         }
+
 }
