@@ -22,9 +22,10 @@ import java.util.Properties;
 public class JavaSocket {
     private static final String emailKey = "budqqhazgxlxbebe"; //发件人邮箱的授权码
     private static final String emailId_send = "2064058933@qq.com";
-    private static final String emailId_receicve = "luckyoness@163.com";
+    private static final String emailId_receicve = "";
 
     public static Properties getProperties() throws Exception{
+
         Properties prop = new Properties();
         prop.setProperty("mail.host", "smtp.qq.com");
 //        设置QQ邮件服务器
@@ -65,9 +66,10 @@ public class JavaSocket {
         //指明邮件的发件人
         message.setFrom(new InternetAddress(emailId_send));
         //指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailId_receicve));
+
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailModel.emailReciver));
         //邮件的封装 【纯文本邮件、图片邮件等】
-//        messageWord(message,emailModel);
+        messageWord(message,emailModel);
         if(type == 1) messageWord(message,emailModel);
         else if(type ==2) messagePic(message,emailModel);
         //5、发送邮件
@@ -126,8 +128,7 @@ public class JavaSocket {
 
     public static void main(String[] args) {
         try {
-
-            JavaSocket.sendMail(new EmailModel("title", "message","@163.com"),1);
+            JavaSocket.sendMail(new EmailModel("title", "message","luckyoness@163.com"),1);
         } catch (Exception e) {
             e.printStackTrace();
         }

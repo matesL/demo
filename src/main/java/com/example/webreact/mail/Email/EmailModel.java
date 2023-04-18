@@ -9,9 +9,9 @@
 package com.example.webreact.mail.Email;
 public class EmailModel {
 
-        private String title;  //邮件标题
-        private String message; //邮件内容
-        private String emailReciver; //邮件收件人
+        public String title;  //邮件标题
+        public String message; //邮件内容
+        public String emailReciver; //邮件收件人
         public EmailModel(String title, String message, String emailReciver){
             this.title = title;
             this.message = message;
