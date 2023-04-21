@@ -50,15 +50,15 @@ public class LoginDto {
     }
 
     public UserInfo getUserInfo() {
-        return userInfo;
+        return data;
     }
 
     public LoginDto setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+        this.data = userInfo;
         return this;
     }
 
     Boolean isSuc = true;
-    UserInfo userInfo;
+    UserInfo data;
 
 }

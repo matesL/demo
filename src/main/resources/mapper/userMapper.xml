@@ -7,7 +7,7 @@
     <!-- userMapper.xml -->
 
     <!-- 注册 id=save方法-->
-    <insert id="save" parameterType="com.example.webreact.entity.basecat.UserInfo">
+    <insert id="singup" parameterType="com.example.webreact.entity.basecat.UserInfo">
         INSERT INTO user_info (username, password, Email)
         VALUES (#{username}, #{password}, #{Email})
     </insert>

@@ -21,7 +21,7 @@ public class TokenUtil {
 
 
     //token到期时间60s
-    private static final long EXPIRE_TIME= 60*1000;
+    private static final long EXPIRE_TIME= 60000*1000;
     //密钥盐
     private static final String TOKEN_SECRET="123456qwertyuiop789";
 
@@ -40,6 +40,8 @@ public class TokenUtil {
                     //存放数据
                     .withClaim("username",user.getUsername())
                     .withClaim("password",user.getPassword())
+                    .withClaim("id",user.getId())
+                    .withClaim("Email",user.getEmail())
                     //过期时间
                     .withExpiresAt(expireAt)
                     .sign(Algorithm.HMAC256(TOKEN_SECRET));
@@ -60,6 +62,7 @@ public class TokenUtil {
             DecodedJWT decodedJWT=jwtVerifier.verify(token);
             System.out.println("认证通过：");
             System.out.println("username: " + TokenUtil.getUserName(token));
+            System.out.println("id: " + TokenUtil.getUserID(token));
             System.out.println("过期时间：    " + decodedJWT.getExpiresAt());
         } catch (IllegalArgumentException |JWTVerificationException e) {
             //抛出错误即为验证不通过
@@ -77,6 +80,18 @@ public class TokenUtil {
             return  jwt.getClaim("username").asString();
         }catch (JWTDecodeException e)
         {
+            return null;
+        }
+    }
+    /**
+     * 获取用户id
+     */
+    public static Integer getUserID(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+
+            return jwt.getClaim("id").asInt();
+        } catch (JWTDecodeException e) {
             return null;
         }
     }

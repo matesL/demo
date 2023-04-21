@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,11 +28,14 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
-        //排除拦截，除了登录，其他都拦截
-        excludePath.add("/v2/login");
+        //排除拦截，除了登录、注册，其他都拦截
+        excludePath.add("/v2/**");
+
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
+
                 .excludePathPatterns(excludePath);
+
         WebMvcConfigurer.super.addInterceptors(registry);
 
     }

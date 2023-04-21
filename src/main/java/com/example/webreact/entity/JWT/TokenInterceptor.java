@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
 
 
 /**
@@ -27,14 +28,19 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         //获取到token
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
+        System.out.println(request.getHeader("Authorization"));
         if (token!=null){
             boolean result= TokenUtil.verify(token);
             if (result){
                 System.out.println("通过拦截器");
                 return true;
             }
+
         }
+
+
+
         try {
             JSONObject json=new JSONObject();
             json.put("msg","token verify fail");

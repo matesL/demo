@@ -8,12 +8,23 @@
 
 package com.example.webreact.server.user;
 
+import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.basecat.LoginDto;
 import com.example.webreact.entity.basecat.UserInfo;
-
+import com.example.webreact.mail.Email.Useremail;
 
 
 public interface IUserService {
     LoginDto login(UserInfo user);
+    LoginDto singup(UserInfo user);
+    /**
+     * 新增邮箱信息
+     */
+    Response inster (Useremail useremail);
+
+    /**
+     * 查询信息
+     */
+    Response select (Useremail useremail);
 
 }

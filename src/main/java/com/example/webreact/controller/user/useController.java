@@ -2,7 +2,7 @@ package com.example.webreact.controller.user;
 
 import com.example.webreact.entity.basecat.LoginDto;
 import com.example.webreact.entity.basecat.UserInfo;
-import com.example.webreact.server.userimp.IUserServiceImpl;
+import com.example.webreact.server.Imp.userimp.IUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,18 @@ public class useController {
     private IUserServiceImpl userService;
     @PostMapping("/login")
     public LoginDto login( UserInfo user){
-        System.out.println( user.getPassword()+" /n"+user.getUsername());
-        LoginDto login = userService.login(user);
-        return login;
+        return userService.login(user);
+    }
+    /**
+     * @description 注册接口
+     * @param userInfo
+     * @author lucky
+     * @date 2023/4/14 16:58
+     */
+
+    @PostMapping("/inst")
+    public LoginDto inst( UserInfo user){
+        return userService.singup(user);
     }
     /**
      * 测试
