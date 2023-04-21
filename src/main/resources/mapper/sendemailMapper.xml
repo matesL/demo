@@ -5,14 +5,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.webreact.mapper.post.sendemailMapper">
     <!-- ImageMapper.xml -->
-    <!--  -->
+    <!--  新增邮件服务-->
     <insert id="insert" parameterType="com.example.webreact.mail.Email.Useremail">
         INSERT INTO popserver (send_email,to_email,user_id,key_pop)
         VALUES (#{send_email}, #{to_email}, #{user_id}, #{key_pop})
     </insert>
 
+
     <select id="select" parameterType="com.example.webreact.mail.Email.Useremail">
         select * from  popserver
     </select>
+
+    <insert id="send_list" parameterType="com.example.webreact.mail.Email.EmailModel">
+        INSERT INTO mymail (title,to_email,send_email,message,sendtime,state,url,user_id)
+        VALUES (#{title}, #{to_email}, #{send_email}, #{message},#{sendtime},#{state},#{url},#{user_id})
+    </insert>
 
 </mapper>

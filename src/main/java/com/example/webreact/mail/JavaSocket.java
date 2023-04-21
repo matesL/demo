@@ -8,6 +8,7 @@
 
 package com.example.webreact.mail;
 
+import com.example.webreact.mail.Email.Useremail;
 import com.sun.mail.util.MailSSLSocketFactory;
 import jakarta.activation.DataHandler;
 import jakarta.activation.FileDataSource;
@@ -20,6 +21,7 @@ import  com.example.webreact.mail.Email.EmailModel;
 import java.util.Properties;
 
 public class JavaSocket {
+
     private static final String emailKey = "budqqhazgxlxbebe"; //发件人邮箱的授权码
     private static final String emailId_send = "2064058933@qq.com";
     private static final String emailId_receicve = "";
@@ -41,16 +43,18 @@ public class JavaSocket {
     }
 
     /**
-     * @param type  1:纯文本邮件、 2：文本+图片邮件
+     * @param type 1:纯文本邮件、 2：文本+图片邮件
+     * @return
      */
-    public static void sendMail(EmailModel emailModel,int type) throws Exception{
+    public static boolean sendMail(EmailModel emailModel, int type) throws Exception{
 
         //使用JavaMail发送邮件的5个步骤
         //1、创建定义整个应用程序所需的环境信息的 Session 对象
         Session session = Session.getDefaultInstance(getProperties(), new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
                 //发件人邮件用户名、授权码
-                return new PasswordAuthentication(emailId_send, emailKey);
+//                return new PasswordAuthentication(emailId_send, emailKey);
+                return new PasswordAuthentication(emailModel.getSend_email(), emailKey);
             }
         });
 
@@ -59,23 +63,34 @@ public class JavaSocket {
         //2、通过session得到transport对象
         Transport ts = session.getTransport();
         //3、使用邮箱的用户名和授权码连上邮件服务器
-        ts.connect("smtp.qq.com", emailId_send, emailKey);
+//        使用数据库获取key
+        Useremail model=new Useremail();
+
+//        emailId_send=model.getSend_email();
+//        emailKey=model.getKey_pop();
+        ts.connect("smtp.qq.com", emailModel.getSend_email(), emailKey);
         //4、创建邮件
         //创建邮件对象
         MimeMessage message = new MimeMessage(session);
         //指明邮件的发件人
-        message.setFrom(new InternetAddress(emailId_send));
+        message.setFrom(new InternetAddress(emailModel.getSend_email()));
         //指明邮件的收件人，现在发件人和收件人是一样的，那就是自己给自己发
 
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailModel.emailReciver));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailModel.getTo_email()));
         //邮件的封装 【纯文本邮件、图片邮件等】
         messageWord(message,emailModel);
-        if(type == 1) messageWord(message,emailModel);
+       try{ if(type == 1) messageWord(message,emailModel) ;
         else if(type ==2) messagePic(message,emailModel);
         //5、发送邮件
         ts.sendMessage(message, message.getAllRecipients());
         // re=ts
         ts.close();
+
+       } catch (Exception e)
+       {
+           return false;
+       }
+        return true;
     }
 
     //纯文本邮件
@@ -128,7 +143,7 @@ public class JavaSocket {
 
     public static void main(String[] args) {
         try {
-            JavaSocket.sendMail(new EmailModel("title", "message","luckyoness@163.com"),1);
+//            JavaSocket.sendMail("title", "message","luckyoness@163.com",1);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
-
+public static String token="";
     @Override
     public boolean preHandle(HttpServletRequest request,  HttpServletResponse response,  Object handler) throws Exception {
 
@@ -28,7 +28,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         //获取到token
-        String token = request.getHeader("Authorization");
+         token = request.getHeader("Authorization");
         System.out.println(request.getHeader("Authorization"));
         if (token!=null){
             boolean result= TokenUtil.verify(token);

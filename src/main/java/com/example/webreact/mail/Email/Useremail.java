@@ -1,10 +1,22 @@
 package com.example.webreact.mail.Email;
 
-public class Useremail {
 
+public class Useremail {
+    /**
+     * 用户关联表
+     */
 
     public String send_email;
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String message; //存储用户发送消息
     public String getSend_email() {
         return send_email;
     }
@@ -38,17 +50,6 @@ public class Useremail {
     }
 
     public String to_email;
-
-//    @Override
-//    public String toString() {
-//        return "Useremail{" +
-//                "send_email='" + send_email + '\'' +
-//                ", to_email='" + to_email + '\'' +
-//                ", user_id='" + user_id + '\'' +
-//                ", key_pop='" + key_pop + '\'' +
-//                '}';
-//    }
-
     public String user_id;
     public String key_pop;
 
