@@ -21,4 +21,30 @@
         VALUES (#{title}, #{to_email}, #{send_email}, #{message},#{sendtime},#{state},#{url},#{user_id})
     </insert>
 
+
+    <select id="getlist_seng" parameterType="com.example.webreact.entity.basecat.UserInfo">
+        select * from user_info where id=#{id}
+    </select>
+
+    <select id="data_list" resultType="map" parameterType="com.example.webreact.mail.Email.EmailModel">
+        select * from mymail where user_id=#{user_id}
+    </select>
+
+<!--    <resultMap id="getAllSetDaysResult"   type="HashMap">-->
+<!--        <result property="id" column="invest_id" jdbcType="VARCHAR" />-->
+<!--        <result property="modifytime" column="modify_time" jdbcType="DATE"/>-->
+
+<!--    </resultMap>-->
+<!--    <select id="data_list" parameterType="java.util.List" resultMap="getAllSetDaysResult">-->
+<!--        select-->
+<!--        t1.invest_id                      ,-->
+<!--        cast(t1.modify_time AS DATE) modify_time-->
+<!--        from t_c_wh_redeeminfo t1-->
+<!--        where 1=1-->
+<!--        and t1.invest_id in-->
+<!--        <foreach collection="list" item="investId" index="index"  open="(" close=")" separator=",">-->
+<!--            #{investId}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
 </mapper>

@@ -1,9 +1,12 @@
 package com.example.webreact.mapper.post;
 
-import com.example.webreact.entity.Reslut.Response;
+import com.example.webreact.entity.basecat.UserInfo;
 import com.example.webreact.mail.Email.EmailModel;
 import com.example.webreact.mail.Email.Useremail;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface sendemailMapper {
@@ -27,4 +30,15 @@ public interface sendemailMapper {
      * username
      */
     int send_list(EmailModel model);
+
+    /**
+     * 查询历史记录
+     */
+    UserInfo getlist_seng(int id);
+    /**
+     *
+     * 如果用户执行历史记录查询
+     */
+   List<EmailModel>  data_list(int id);
+//    List<Map<String,Object>>   data_list(List<Integer>  id);
 }

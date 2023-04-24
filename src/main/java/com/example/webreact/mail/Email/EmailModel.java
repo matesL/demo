@@ -13,7 +13,6 @@ public class EmailModel {
     public String message; //邮件内容
     public String to_email; //邮件收件人
 
-
     public String getTitle() {
         return title;
     }

@@ -80,7 +80,7 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public Response inster(Useremail useremail) {
 
-       if (useremail.send_email==null){
+       if (useremail==null){
            System.out.println(useremail.user_id);
            return new Response(false,"失败！ 请填写完整",400);
        }
