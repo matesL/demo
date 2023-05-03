@@ -11,7 +11,7 @@ package com.example.webreact.server.user;
 import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.basecat.LoginDto;
 import com.example.webreact.entity.basecat.UserInfo;
-import com.example.webreact.mail.Email.Useremail;
+import com.example.webreact.entity.Email.Useremail;
 
 
 public interface IUserService {
@@ -20,7 +20,7 @@ public interface IUserService {
     /**
      * 新增邮箱信息
      */
-    Response inster (Useremail useremail);
+    Response addemail (Useremail useremail);
 
     /**
      * 查询信息

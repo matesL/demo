@@ -45,7 +45,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+        <!-- 配置文件 资源映射-->
+        <dependency>
+            <groupId> org.springframework.boot </groupId>
+            <artifactId> spring-boot-configuration-processor </artifactId>
+            <optional> true </optional>
+        </dependency>
         <!-- junit测试 -->
 <!--        <dependency>-->
 <!--            <groupId>junit</groupId>-->

@@ -1,14 +1,7 @@
-/*
- * Copyright (c) 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
 
-package com.example.webreact.mail;
+package com.example.webreact.entity.mail;
 
-import com.example.webreact.mail.Email.Useremail;
+import com.example.webreact.entity.Email.Useremail;
 import com.sun.mail.util.MailSSLSocketFactory;
 import jakarta.activation.DataHandler;
 import jakarta.activation.FileDataSource;
@@ -17,19 +10,19 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
-import  com.example.webreact.mail.Email.EmailModel;
+import  com.example.webreact.entity.Email.EmailModel;
 import java.util.Properties;
 
 public class JavaSocket {
 
-    private static final String emailKey = "budqqhazgxlxbebe"; //发件人邮箱的授权码
+    private static final String emailKey = "HEINYMWEEAJYPXMB"; //发件人邮箱的授权码
     private static final String emailId_send = "2064058933@qq.com";
     private static final String emailId_receicve = "";
 
     public static Properties getProperties() throws Exception{
 
         Properties prop = new Properties();
-        prop.setProperty("mail.host", "smtp.qq.com");
+        prop.setProperty("mail.host", "smtp.163.com");
 //        设置QQ邮件服务器
         prop.setProperty("mail.transport.protocol", "smtp"); // 邮件发送协议
         prop.setProperty("mail.smtp.auth", "true"); // 需要验证用户名密码
@@ -68,7 +61,7 @@ public class JavaSocket {
 
 //        emailId_send=model.getSend_email();
 //        emailKey=model.getKey_pop();
-        ts.connect("smtp.qq.com", emailModel.getSend_email(), emailKey);
+        ts.connect("smtp.163.com", emailModel.getSend_email(), emailKey);
         //4、创建邮件
         //创建邮件对象
         MimeMessage message = new MimeMessage(session);

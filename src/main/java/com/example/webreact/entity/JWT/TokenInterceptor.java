@@ -29,18 +29,14 @@ public static String token="";
 
         //获取到token
          token = request.getHeader("Authorization");
-        System.out.println(request.getHeader("Authorization"));
+//        System.out.println(request.getHeader("Authorization"));
         if (token!=null){
             boolean result= TokenUtil.verify(token);
             if (result){
                 System.out.println("通过拦截器");
                 return true;
             }
-
         }
-
-
-
         try {
             JSONObject json=new JSONObject();
             json.put("msg","token verify fail");

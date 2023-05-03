@@ -7,7 +7,7 @@
     <!-- ImageMapper.xml -->
     <!-- 插入图片信息 -->
     <insert id="save" parameterType="com.example.webreact.entity.uploadimage">
-        INSERT INTO uploaimage (name, url, logs, country, createtime)
-        VALUES (#{name}, #{url}, #{logs}, #{country}, #{createtime})
+        INSERT INTO uploaimage (name, url, user_id, country, createtime)
+        VALUES (#{name}, #{url}, #{user_id}, #{country}, #{createtime})
     </insert>
 </mapper>

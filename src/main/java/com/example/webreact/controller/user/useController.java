@@ -24,7 +24,7 @@ public class useController {
         return userService.login(user);
     }
     /**
-     * @description 注册接口
+     * @description 注册
      * @param userInfo
      * @author lucky
      * @date 2023/4/14 16:58

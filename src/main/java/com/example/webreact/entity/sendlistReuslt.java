@@ -1,7 +1,7 @@
 package com.example.webreact.entity;
 
 import com.example.webreact.entity.basecat.UserInfo;
-import com.example.webreact.mail.Email.EmailModel;
+import com.example.webreact.entity.Email.EmailModel;
 import java.util.List;
 public class sendlistReuslt {
     String msg;

@@ -28,11 +28,11 @@ public class CorsConfig implements Filter{
             System.out.println(request.getHeader("Origin"));
             response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
             response.setHeader("Access-Control-Max-Age", "7200");
-//            response.setHeader("Access-Control-Allow-Headers", "Origin, Authorization,Token X-Requested-With, Content-Type, Accept,application/pdf,application/json");
+//            response.setHeader("Access-Control-Allow-Headers", "* ,Origin, Authorization,Token X-Requested-With, Content-Type, Accept,application/pdf,application/json");
             response.setHeader("Access-Control-Allow-Headers", "* ,Authorization");
             response.setHeader("Access-Control-Allow-Credentials","true");
-//            response.setHeader("Access-Control-Request-Headers","security-token");
-//            response.setHeader("token",request.getHeader("token"));
+            response.setHeader("Access-Control-Request-Headers","security-token");
+            response.setHeader("token",request.getHeader("token"));
 
             // System.out.println(req+"jjj");
             chain.doFilter(req, res);
@@ -46,6 +46,5 @@ public class CorsConfig implements Filter{
     }
     public void destroy() {
     }
-
 
 }

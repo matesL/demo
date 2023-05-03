@@ -30,7 +30,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         List<String> excludePath = new ArrayList<>();
         //排除拦截，除了登录、注册，其他都拦截
         excludePath.add("/v2/**");
-
+        excludePath.add("/uploads/**");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
 

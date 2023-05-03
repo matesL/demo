@@ -6,12 +6,21 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.example.webreact.mail.Email;
-public class EmailModel {
+package com.example.webreact.entity.Email;
 
+import jakarta.activation.FileDataSource;
+
+public class EmailModel {
+    /**
+     * 邮件发送历史记录
+     */
     public String title;  //邮件标题
     public String message; //邮件内容
     public String to_email; //邮件收件人
+    public String send_email; //邮件发送人
+    public String sendtime; //邮件发送时间
+    public int user_id;  //用户id
+    public int  state; //状态
 
     public String getTitle() {
         return title;
@@ -77,10 +86,34 @@ public class EmailModel {
         this.url = url;
     }
 
-    public String send_email; //邮件发送人
-    public String sendtime; //邮件发送时间
-    public int user_id;  //用户id
-    public int  state; //状态
+    public int getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
+    }
+
+    public int getPop_id() {
+        return pop_id;
+    }
+
+    public void setPop_id(int pop_id) {
+        this.pop_id = pop_id;
+    }
+
     public String url; //附件地址
+    public int type_id; //协议类型 1、QQ邮箱 2、网易邮箱  3、其他
+    public int pop_id; //1、POP  2、smtp
+
+    FileDataSource fileDataSource;
+
+    public FileDataSource getFileDataSource() {
+        return fileDataSource;
+    }
+
+    public void setFileDataSource(FileDataSource fileDataSource) {
+        this.fileDataSource = fileDataSource;
+    }
 }
 

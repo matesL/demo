@@ -6,19 +6,19 @@
 <mapper namespace="com.example.webreact.mapper.post.sendemailMapper">
     <!-- ImageMapper.xml -->
     <!--  新增邮件服务-->
-    <insert id="insert" parameterType="com.example.webreact.mail.Email.Useremail">
-        INSERT INTO popserver (send_email,to_email,user_id,key_pop)
-        VALUES (#{send_email}, #{to_email}, #{user_id}, #{key_pop})
+    <insert id="addemail" parameterType="com.example.webreact.entity.Email.Useremail">
+        INSERT INTO popserver (user_email,user_id,type_id,pop_type,key_pop,nick)
+        VALUES (#{user_email}, #{user_id}, #{type_id},#{pop_type}, #{key_pop},#{nick})
     </insert>
 
 
-    <select id="select" parameterType="com.example.webreact.mail.Email.Useremail">
+    <select id="select" parameterType="com.example.webreact.entity.Email.Useremail">
         select * from  popserver
     </select>
 
-    <insert id="send_list" parameterType="com.example.webreact.mail.Email.EmailModel">
-        INSERT INTO mymail (title,to_email,send_email,message,sendtime,state,url,user_id)
-        VALUES (#{title}, #{to_email}, #{send_email}, #{message},#{sendtime},#{state},#{url},#{user_id})
+    <insert id="send_list" parameterType="com.example.webreact.entity.Email.EmailModel">
+        INSERT INTO mymail (title,to_email,send_email,message,sendtime,state,url,user_id,pop_id)
+        VALUES (#{title}, #{to_email}, #{send_email}, #{message},#{sendtime},#{state},#{url},#{user_id},#{pop_id})
     </insert>
 
 
@@ -26,25 +26,30 @@
         select * from user_info where id=#{id}
     </select>
 
-    <select id="data_list" resultType="map" parameterType="com.example.webreact.mail.Email.EmailModel">
+    <select id="data_list" resultType="map" parameterType="com.example.webreact.entity.Email.EmailModel">
         select * from mymail where user_id=#{user_id}
     </select>
 
-<!--    <resultMap id="getAllSetDaysResult"   type="HashMap">-->
-<!--        <result property="id" column="invest_id" jdbcType="VARCHAR" />-->
-<!--        <result property="modifytime" column="modify_time" jdbcType="DATE"/>-->
+    <!--  新增邮件服务-->
+    <insert id="addPOPserver" parameterType="com.example.webreact.entity.Email.pop3_server">
+        INSERT INTO pop3_server (user_id, pop3_typeid, smtp,Property)
+        VALUES (#{user_id}, #{pop3_typeid}, #{smtp},#{Property})
+    </insert>
+<!-- c查询key-->
+    <select id="pop_keytostring" parameterType="com.example.webreact.entity.Email.Useremail">
+        select * from popserver where user_id=#{user_id} and user_email=#{user_email}
+    </select>
 
-<!--    </resultMap>-->
-<!--    <select id="data_list" parameterType="java.util.List" resultMap="getAllSetDaysResult">-->
-<!--        select-->
-<!--        t1.invest_id                      ,-->
-<!--        cast(t1.modify_time AS DATE) modify_time-->
-<!--        from t_c_wh_redeeminfo t1-->
-<!--        where 1=1-->
-<!--        and t1.invest_id in-->
-<!--        <foreach collection="list" item="investId" index="index"  open="(" close=")" separator=",">-->
-<!--            #{investId}-->
-<!--        </foreach>-->
-<!--    </select>-->
 
+    <!-- 协议查询-->
+    <select id="pop_data" parameterType="com.example.webreact.entity.Email.pop3_stmp">
+        select * from pop3_stmp where type_id=#{type_id} and pop_id=#{pop_id}
+    </select>
+
+
+
+    <!-- 查询添加的邮箱是否存在-->
+    <select id="emailcount"  parameterType="com.example.webreact.entity.Email.Useremail">
+        select * from popserver where user_email=#{user_email} and user_id=#{user_id}
+    </select>
 </mapper>

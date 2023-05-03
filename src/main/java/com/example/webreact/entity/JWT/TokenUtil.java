@@ -61,8 +61,8 @@ public class TokenUtil {
             JWTVerifier jwtVerifier=JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();
             DecodedJWT decodedJWT=jwtVerifier.verify(token);
             System.out.println("认证通过：");
-            System.out.println("username: " + TokenUtil.getUserName(token));
-            System.out.println("id: " + TokenUtil.getUserID(token));
+//            System.out.println("username: " + TokenUtil.getUserName(token));
+//            System.out.println("id: " + TokenUtil.getUserID(token));
             System.out.println("过期时间：    " + decodedJWT.getExpiresAt());
         } catch (IllegalArgumentException |JWTVerificationException e) {
             //抛出错误即为验证不通过
@@ -70,7 +70,6 @@ public class TokenUtil {
         }
         return true;
     }
-
     /**
      * 获取用户名
      */

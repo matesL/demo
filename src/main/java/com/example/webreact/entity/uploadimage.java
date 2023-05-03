@@ -10,14 +10,14 @@ public class uploadimage {
     private String name;
     private String url;
 
-    private String logs;
+    private int user_id;
     private  String country;
 
     private String createtime;
-    public uploadimage(String name, String url, String logs, String country, String createtime) {
+    public uploadimage(String name, String url, int user_id, String country, String createtime) {
         this.name = name;
         this.url = url;
-        this.logs = logs;
+        this.user_id = user_id;
         this.country = country;
         this.createtime = createtime;
     }
@@ -42,12 +42,12 @@ public class uploadimage {
         return this;
     }
 
-    public String getLogs() {
-        return logs;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public uploadimage setLogs(String logs) {
-        this.logs = logs;
+    public uploadimage setUser_id(int user_id) {
+        this.user_id = user_id;
         return this;
     }
 
