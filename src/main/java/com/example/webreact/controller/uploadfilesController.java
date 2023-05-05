@@ -1,5 +1,5 @@
 package com.example.webreact.controller;
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson2.JSONObject;
 import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.uploadimage;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -34,20 +35,18 @@ public class uploadfilesController {
      * @return   result
      */
     @PostMapping("/upload")
-    public Response upload(@RequestParam("image") MultipartFile[] files, int id, HttpServletRequest req) {
-
-        String url = null;
+    public Response upload(@RequestParam(value = "image",required = false) MultipartFile[] files, int id, HttpServletRequest req) {
+        if (files==null)return new Response(false, "请选择文件！", 401,null);
+        String url = "";
         String uploadTime = "";
         Map<String,Object> data=new HashMap<>();
-        System.out.println(files[0]+"  "+"ssss");
-        if (files[0]==null)return new Response(false, "上传失败！", 404,null);
+        List<Map> list=new ArrayList<>();
+//        System.out.println(files[0]+"  "+"ssss");
         for (MultipartFile file : files) {
 
             //            获取文件名
             String fileName = file.getOriginalFilename();
-            if (fileName != null) {
-                System.out.println(fileName+"dddd");
-            }
+
             //创建文件对象
             String storeName = null;
             if (fileName != null) {
@@ -55,8 +54,10 @@ public class uploadfilesController {
             }
             uploadTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             String logs = String.valueOf(file.getSize());
-            String country = String.valueOf(fileName.lastIndexOf("."));
-
+            String country = null;
+            if (fileName != null) {
+                country = String.valueOf(fileName.substring(0,fileName.lastIndexOf(".")));
+            }
             try {
 //                System.out.println("文件名: " + fileName + "\n上传时间: " + uploadTime + "\n长度:" + logs + " \n说明:" + country + "\n路径名:" + storeName);
                 String filepath = "uploads/" + uploadTime;
@@ -74,12 +75,14 @@ public class uploadfilesController {
 
                 return new Response(false, "上传失败！", 404,null);
             }
+            data.put("url",url);
+            data.put("time",uploadTime);
+            JSONObject json = new JSONObject(data);
+
+            list.add(json);
         }
-        data.put("url",url);
-        data.put("time",uploadTime);
-        JSONObject json = new JSONObject(data);
-        List<Map> list=new ArrayList<>();
-        list.add(json);
+
+
 //        String jsonString2= JSON.toJSONString(data);
         System.out.println(list);
         return new Response(true, "上传成功！", 200, list);

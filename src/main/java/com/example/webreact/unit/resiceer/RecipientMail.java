@@ -5,11 +5,11 @@ import jakarta.mail.*;
 import java.util.Properties;
 
 public class RecipientMail {
-    public static String recipientAddress = "xxx@163.com";
+//    public static String recipientAddress = "lucky@163.com";
     //收件人账户名
-    public static String recipientAccount = "xxx";
+    public static String recipientAccount = "luckyoness@163.com";
     //收件人账户密码
-    public static String recipientPassword = "xxx";
+    public static String recipientPassword = "HEINYMWEEAJYPXMB";
 
     public static void setRecipientAddress() throws Exception {
         //1、连接邮件服务器的参数配置
@@ -36,10 +36,13 @@ public class RecipientMail {
         for(int i = 0 ; i < messages.length ; i++){
             //获得邮件主题
             String subject = messages[i].getSubject();
+            System.out.println(subject);
             //获得邮件发件人
             Address[] from = messages[i].getFrom();
+
             //获取邮件内容（包含邮件内容的html代码）
             String content = (String) messages[i].getContent();
+//            System.out.println(content);
         }
 
         //关闭邮件夹对象
@@ -47,5 +50,8 @@ public class RecipientMail {
         //关闭连接对象
         store.close();
     }
+   public  static void  main(String [] arg) throws Exception {
+       setRecipientAddress();
+   }
 
 }

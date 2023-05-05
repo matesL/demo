@@ -1,6 +1,6 @@
 package com.example.webreact.server.Imp.emailImp;
 import com.example.webreact.server.Imp.uploadServerImp;
-import com.example.webreact.unit.javaMail;
+
 import com.example.webreact.entity.Email.Useremail;
 import com.example.webreact.unit.sendMail;
 import com.example.webreact.entity.Email.pop3_stmp;
@@ -49,7 +49,7 @@ public class sendemailSericeImp implements sendEmailServer {
             //2、确定协议的host端口 和类型是smtp或pop
             pop3_stmp smtpserver = sendemailMapper.pop_data(email.type_id, email.pop_id);
 
-            boolean t = sendMail.sendMail(email, smtpserver, useremail,null,null,1);
+            boolean t = sendMail.sendMails(email, smtpserver, useremail,null,null,1);
             /**
              * 存入数据
              */
@@ -65,7 +65,6 @@ public class sendemailSericeImp implements sendEmailServer {
             if (state == 2) {
                 return new Response(false, "邮件发送失败，请重试！", 404, emailModels);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return new Response(false, "错误！", 400, emailModels);
@@ -93,7 +92,7 @@ public class sendemailSericeImp implements sendEmailServer {
         pop3_stmp smtpserver = sendemailMapper.pop_data(email.type_id, email.pop_id);
 
         try {
-            boolean t =  sendMail.sendMail(email, smtpserver, useremail,file,image, 2);
+            boolean t =  sendMail.sendMails(email, smtpserver, useremail,file,image, 2);
 //           javaMail javaMail=  new javaMail();
 //           javaMail.sendEmail(email, smtpserver, useremail,file);
             /**

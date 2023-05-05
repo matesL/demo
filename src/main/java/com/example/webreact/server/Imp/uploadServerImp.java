@@ -1,5 +1,6 @@
 package com.example.webreact.server.Imp;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.example.webreact.entity.uploadimage;
 import com.example.webreact.mapper.UploadMapper;
 import com.example.webreact.server.uploadServer;
@@ -13,8 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 
 @Component
@@ -22,16 +22,23 @@ import java.util.UUID;
 public class uploadServerImp implements uploadServer {
     @Autowired
     private UploadMapper uploadMapper;
+
     @Override
     public void save(uploadimage upload) {
 
         uploadMapper.save(upload);
     }
+
     @Override
-    public String upload_pic(MultipartFile[] files, HttpServletRequest req,int id) {
+    public List upload_pic(MultipartFile[] files, HttpServletRequest req, int id) {
+        Map<String, Object> data = new HashMap<>();
         String url = null;
+        JSONObject json = null;
+        List<Map> list=new ArrayList<>();
         if (files == null) {
-            return "";
+            data.put("msg", "未选择文件！");
+            list.add(data);
+            return list;
         }
         for (MultipartFile file : files) {
 
@@ -44,7 +51,6 @@ public class uploadServerImp implements uploadServer {
             if (fileName != null) {
                 storeName = UUID.randomUUID().toString().replaceAll("-", "") + fileName.substring(fileName.lastIndexOf("."));
             }
-
             try {
 //                System.out.println("文件名: " + fileName + "\n上传时间: " + uploadTime + "\n长度:" + logs + " \n说明:" + country + "\n路径名:" + storeName);
                 String uploadTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -56,12 +62,13 @@ public class uploadServerImp implements uploadServer {
                 storeName = "/" + filePath;
                 url = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + storeName;
                 uploadMapper.save(new uploadimage(fileName, url, id, "邮件图片", uploadTime));
-
+                data.put("url", url);
+                data.put("time", uploadTime);
+                list.add(data);
             } catch (Exception e) {
                 e.printStackTrace();
-                return url;
             }
         }
-        return url;
+        return list;
     }
 }

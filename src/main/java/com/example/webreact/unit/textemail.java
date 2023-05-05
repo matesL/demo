@@ -8,8 +8,13 @@ public class textemail {
     public static void messageWord(MimeMessage message, EmailModel emailModel) throws Exception {
         //邮件的标题
         message.setSubject(emailModel.getTitle());
-
+        //处理正文内容不换行
+        String sendHtml="";
+        if (emailModel.getMessage() != null && !"".equals(emailModel.getMessage().trim()))
+            sendHtml= emailModel.getMessage().replaceAll("\n", "<br>").replaceAll("\n", "<BR>");
+        else
+            sendHtml = "";
         //邮件的文本内容
-        message.setContent(emailModel.getMessage(), "text/html;charset=UTF-8");
+        message.setContent(sendHtml, "text/html;charset=UTF-8");
     }
 }

@@ -20,23 +20,21 @@ public class filesemail {
     public static void messagePic(MimeMessage message, EmailModel emailModel, MultipartFile[] files, MultipartFile[] image) throws Exception {
         //邮件标题
         message.setSubject(emailModel.getTitle(), "UTF-8");
-
-
         // 准备图片数据
         MimeBodyPart imageboby = new MimeBodyPart();
-
-
-
         // 准备正文数据
         MimeBodyPart text1 = new MimeBodyPart();
 
-//        body3.setDataHandler(new DataHandler(new FileDataSource(file)));
-//        body3.setFileName(file.getName()); //附件设置名字
         MimeMultipart mm = new MimeMultipart();
 
+/**
+ * 复杂邮件类型，1、正文加图片 2、正文加附件 3、正文加图片  4、图片加附件（图片加附件 不需要特殊处理 正文允许为空）
+ * 1、第一步判断附件 file image 图片是否为空
+ * 2、判断file image 数量
+ */
         if (!image[0].isEmpty()) {
             DataHandler dh = new DataHandler(image[0].getBytes(), "application/octet-stream");
-//                    new DataHandler(new FileDataSource(image));
+            //new DataHandler(new FileDataSource(image));
             imageboby.setDataHandler(dh);
             String filename = String.valueOf(Objects.requireNonNull(image[0].getOriginalFilename()).lastIndexOf("."));
             imageboby.setContentID(filename);
@@ -69,6 +67,7 @@ public class filesemail {
             // 设定附件文件名
         }
         MimeBodyPart contentText = new MimeBodyPart();
+
         contentText.setContent(mm);
         //拼接附件
         MimeMultipart allFile = new MimeMultipart();

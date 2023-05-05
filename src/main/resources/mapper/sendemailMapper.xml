@@ -52,4 +52,5 @@
     <select id="emailcount"  parameterType="com.example.webreact.entity.Email.Useremail">
         select * from popserver where user_email=#{user_email} and user_id=#{user_id}
     </select>
+
 </mapper>

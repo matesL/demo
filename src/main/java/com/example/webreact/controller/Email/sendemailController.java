@@ -1,6 +1,7 @@
 package com.example.webreact.controller.Email;
 
 
+import com.alibaba.fastjson2.JSONObject;
 import com.example.webreact.entity.Reslut.Response;
 import com.example.webreact.entity.sendlistReuslt;
 import com.example.webreact.entity.Email.EmailModel;
@@ -8,6 +9,7 @@ import com.example.webreact.entity.Email.Useremail;
 import com.example.webreact.server.Imp.emailImp.sendemailSericeImp;
 import com.example.webreact.server.Imp.uploadServerImp;
 import com.example.webreact.server.Imp.userimp.IUserServiceImpl;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.List;
 
 
 @RestController
@@ -33,16 +36,18 @@ public class sendemailController {
      * @throws
      */
     @PostMapping("/sendEmail")
-    public Response email(EmailModel useremail, MultipartFile[] file, MultipartFile[] image, int type, HttpServletRequest req) throws Exception {
-        if (type == 1) {
+    public Response email(EmailModel useremail,@RequestParam(value = "file",required = false) MultipartFile[] file,@RequestParam(value = "image",required = false) MultipartFile[] image, HttpServletRequest req) throws Exception {
+        if (file!=null || image!=null ) {
+
             System.out.println(1 + ": type");
-            String url =uploadServerImp.upload_pic(file,req,useremail.getUser_id());
-            return sendemailSericeImp.send_list(useremail,url);
-        } else {
+            List url =uploadServerImp.upload_pic(image,req,useremail.getUser_id());
+            return sendemailSericeImp.file_sendEmail(useremail, file, image, String.valueOf(url));
+        }
+        else {
             System.out.println(2 + ": type");
-           String url =uploadServerImp.upload_pic(file,req,useremail.getUser_id());
-            Response response = sendemailSericeImp.file_sendEmail(useremail, file, image,url);
-            return response;
+            List url =uploadServerImp.upload_pic(image,req,useremail.getUser_id());
+//            Response response = sendemailSericeImp.file_sendEmail(useremail, file, image,url);
+            return sendemailSericeImp.send_list(useremail, String.valueOf(url));
         }
 
     }

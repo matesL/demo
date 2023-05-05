@@ -9,10 +9,12 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.example.webreact.unit.file_sendEmail.messagePics;
 import static com.example.webreact.unit.textemail.messageWord;
 import static com.example.webreact.unit.filesemail.messagePic;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Properties;
 
 public class sendMail {
@@ -46,7 +48,7 @@ public class sendMail {
      * @param type 1:纯文本邮件、 2：文本+图片邮件
      * @return
      */
-    public static boolean sendMail(EmailModel emailModel, pop3_stmp smtpserver, Useremail useremail,MultipartFile[] file,MultipartFile[] image, int type) throws Exception{
+    public static boolean sendMails(EmailModel emailModel, pop3_stmp smtpserver, Useremail useremail,MultipartFile[] files,MultipartFile[] image, int type) throws Exception{
 
         //使用JavaMail发送邮件的5个步骤
         //1、创建定义整个应用程序所需的环境信息的 Session 对象
@@ -59,7 +61,7 @@ public class sendMail {
         });
 
         //开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
-        session.setDebug(true);
+        session.setDebug(false);
         //2、通过session得到transport对象
         Transport ts = session.getTransport();
         //3、使用邮箱的用户名和授权码连上邮件服务器
@@ -82,13 +84,38 @@ public class sendMail {
          * MimeMessage.RecipientType.BCC：密送
          */
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailModel.getTo_email()));
+        // 设置多个收件人地址
+//        if (null != toUser && !toUser.isEmpty()) {
+//            @SuppressWarnings("static-access")
+//            String[] mailTos = {};
+//            InternetAddress[] internetAddressTo = new InternetAddress().parse(toUser);
+//            message.setRecipients(Message.RecipientType.TO, internetAddressTo);
+//        }
+
+        // 设置多个抄送地址
+//        if (null != ccUser && !ccUser.isEmpty()) {
+//            @SuppressWarnings("static-access")
+//            InternetAddress[] internetAddressCC = new InternetAddress().parse(ccUser);
+//            message.setRecipients(Message.RecipientType.CC, internetAddressCC);
+//        }
+
+        // 设置多个密送地址
+//        if (null != bccUser && !bccUser.isEmpty()) {
+//            @SuppressWarnings("static-access")
+//            InternetAddress[] internetAddressBCC = new InternetAddress().parse(bccUser);
+//            message.setRecipients(Message.RecipientType.BCC, internetAddressBCC);
+//        }
+        // 发送日期
+        message.setSentDate(new Date());
         //邮件的封装 【纯文本邮件、图片邮件等】
 //        messageWord(message,emailModel);
         try{
-            if(type == 1) messageWord(message,emailModel) ;
-            else if(type ==2) messagePic(message,emailModel,file,image);
+//            if(type == 1) messageWord(message,emailModel) ;
+//            else if(type ==2) messagePic(message,emailModel,files,image);
+//            else if(type ==2) messagePics(message,emailModel,files,image);
+
             //5、发送邮件
-            ts.sendMessage(message, message.getAllRecipients());
+//            ts.sendMessage(message, message.getAllRecipients());
             // re=ts
             ts.close();
 

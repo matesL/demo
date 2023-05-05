@@ -8,6 +8,7 @@
 
 package com.example.webreact.entity.Email;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.activation.FileDataSource;
 
 public class EmailModel {
@@ -29,6 +30,7 @@ public class EmailModel {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public String getMessage() {
         return message;
@@ -70,6 +72,7 @@ public class EmailModel {
         this.user_id = user_id;
     }
 
+
     public int getState() {
         return state;
     }
@@ -77,6 +80,7 @@ public class EmailModel {
     public void setState(int state) {
         this.state = state;
     }
+
 
     public String getUrl() {
         return url;
@@ -94,6 +98,7 @@ public class EmailModel {
         this.type_id = type_id;
     }
 
+
     public int getPop_id() {
         return pop_id;
     }
@@ -105,15 +110,5 @@ public class EmailModel {
     public String url; //附件地址
     public int type_id; //协议类型 1、QQ邮箱 2、网易邮箱  3、其他
     public int pop_id; //1、POP  2、smtp
-
-    FileDataSource fileDataSource;
-
-    public FileDataSource getFileDataSource() {
-        return fileDataSource;
-    }
-
-    public void setFileDataSource(FileDataSource fileDataSource) {
-        this.fileDataSource = fileDataSource;
-    }
 }
 
